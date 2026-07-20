@@ -10,88 +10,52 @@
     <link rel="stylesheet" href="estilos.css">
 </head>
 
-
 <body>
 
-<header>
+    <header>
 
-    <h1>Macrófitos Ibéricos</h1>
+        <h1>Macrófitos Ibéricos</h1>
 
-    <p>
-        Fotografías e información sobre plantas acuáticas
-        de la Península Ibérica.
-    </p>
+        <p>
+            Fotografías e información sobre plantas acuáticas
+            de la Península Ibérica.
+        </p>
 
-</header>
+    </header>
 
+    <main>
 
-<main>
+        <!-- Buscador (lo usaremos más adelante) -->
+        <section class="buscador">
 
+            <input
+                type="text"
+                id="buscador"
+                placeholder="Buscar especie...">
 
-<section class="buscador">
+        </section>
 
-    <input 
-    type="text" 
-    placeholder="Buscar especie...">
+        <!-- Aquí JavaScript irá creando automáticamente todas las especies -->
+        <section id="species-container">
 
-</section>
+        </section>
 
+    </main>
 
+    <footer>
 
-<section class="especie">
+        <p>
+            Proyecto personal de catálogo de macrófitos ibéricos.
+        </p>
 
+    </footer>
 
-<h2>Potamogeton natans</h2>
+    <!-- Librería para leer el CSV de Google Sheets -->
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 
-
-<img 
-src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Potamogeton_natans.jpeg/640px-Potamogeton_natans.jpeg"
-alt="Potamogeton natans">
-
-
-<h3>Familia</h3>
-
-<p>
-Potamogetonaceae
-</p>
-
-
-<h3>Hábitat</h3>
-
-<p>
-Lagos, lagunas y aguas lentas.
-</p>
-
-
-<h3>Descripción</h3>
-
-<p>
-Planta acuática con hojas flotantes
-de forma ovalada. Es frecuente en
-aguas tranquilas.
-</p>
-
-
-</section>
-
-
-
-</main>
-
-
-
-<footer>
-
-<p>
-Proyecto de catálogo de macrófitos.
-</p>
-
-</footer>
-
-
+    <!-- Nuestro código -->
+    <script src="script.js"></script>
 
 </body>
 
-</html>Macrófitos Ibéricos
-
-Mi primera página web.
+</html>
