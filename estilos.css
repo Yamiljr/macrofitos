@@ -113,3 +113,65 @@ footer {
     padding:20px;
 
 }
+
+/* ==========================
+   GALERÍA
+========================== */
+
+.galeria{
+
+    margin-bottom:20px;
+
+}
+
+.imagen-principal{
+
+    width:100%;
+    max-width:500px;
+
+    display:block;
+
+    margin:auto;
+
+    border-radius:8px;
+
+}
+
+.miniaturas{
+
+    display:flex;
+
+    gap:10px;
+
+    justify-content:center;
+
+    margin-top:10px;
+
+    flex-wrap:wrap;
+
+}
+
+.miniatura{
+
+    width:70px;
+    height:70px;
+
+    object-fit:cover;
+
+    cursor:pointer;
+
+    border-radius:6px;
+
+    border:2px solid transparent;
+
+    transition:.2s;
+
+}
+
+.miniatura:hover{
+
+    border-color:#1f5c42;
+
+    transform:scale(1.05);
+
+}
