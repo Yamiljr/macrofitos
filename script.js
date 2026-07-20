@@ -61,57 +61,70 @@ function crearTarjeta(especie) {
     tarjeta.appendChild(titulo);
 
     // -----------------------
-    // Imagen
+    // GALERÍA
     // -----------------------
 
-// -----------------------
-// Galería de fotos
-// -----------------------
+    const fotos = [
+        especie.foto1,
+        especie.foto2,
+        especie.foto3,
+        especie.foto4,
+        especie.foto5
+    ].filter(f => f && f.trim() !== "");
 
-const fotos = [
-    especie.foto1,
-    especie.foto2,
-    especie.foto3,
-    especie.foto4,
-    especie.foto5
-].filter(f => f && f.trim() !== "");
+    console.log(especie.taxon, fotos);
 
-// Contenedor de la galería
-const galeria = document.createElement("div");
-galeria.className = "galeria";
+    if (fotos.length > 0) {
 
-// Imagen principal
-const imagenPrincipal = document.createElement("img");
-imagenPrincipal.className = "imagen-principal";
-imagenPrincipal.src = fotos[0];
-imagenPrincipal.alt = especie.taxon;
+        const galeria = document.createElement("div");
+        galeria.className = "galeria";
 
-galeria.appendChild(imagenPrincipal);
+        // Imagen grande
+        const imagenPrincipal = document.createElement("img");
+        imagenPrincipal.className = "imagen-principal";
+        imagenPrincipal.src = fotos[0];
+        imagenPrincipal.alt = especie.taxon;
 
-// Miniaturas
-const miniaturas = document.createElement("div");
-miniaturas.className = "miniaturas";
+        galeria.appendChild(imagenPrincipal);
 
-fotos.forEach(foto => {
+        // Miniaturas
+        const miniaturas = document.createElement("div");
+        miniaturas.className = "miniaturas";
 
-    const miniatura = document.createElement("img");
+        fotos.forEach((foto, indice) => {
 
-    miniatura.src = foto;
-    miniatura.className = "miniatura";
+            const miniatura = document.createElement("img");
 
-    miniatura.addEventListener("click", function(){
+            miniatura.src = foto;
+            miniatura.alt = especie.taxon;
+            miniatura.className = "miniatura";
 
-        imagenPrincipal.src = foto;
+            if (indice === 0) {
+                miniatura.classList.add("activa");
+            }
 
-    });
+            miniatura.addEventListener("click", () => {
 
-    miniaturas.appendChild(miniatura);
+                imagenPrincipal.src = foto;
 
-});
+                // Quitar borde solo en ESTA galería
+                miniaturas
+                    .querySelectorAll(".miniatura")
+                    .forEach(img => img.classList.remove("activa"));
 
-galeria.appendChild(miniaturas);
+                miniatura.classList.add("activa");
 
-tarjeta.appendChild(galeria);
+            });
+
+            miniaturas.appendChild(miniatura);
+
+        });
+
+        galeria.appendChild(miniaturas);
+
+        tarjeta.appendChild(galeria);
+
+    }
 
     // -----------------------
     // Familia
@@ -156,7 +169,7 @@ tarjeta.appendChild(galeria);
     tarjeta.appendChild(habitat);
 
     // -----------------------
-    // Descripción / Observaciones
+    // Descripción
     // -----------------------
 
     const descripcionTitulo = document.createElement("h3");
@@ -169,7 +182,6 @@ tarjeta.appendChild(galeria);
 
     tarjeta.appendChild(descripcion);
 
-    // Añadir la tarjeta a la página
     contenedor.appendChild(tarjeta);
 
 }
