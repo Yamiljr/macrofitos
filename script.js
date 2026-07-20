@@ -49,7 +49,7 @@ Papa.parse(csvURL, {
 // ============================================
 
 function crearTarjeta(especie) {
-
+console.log("Creando tarjeta:", especie.taxon);
     const tarjeta = document.createElement("section");
     tarjeta.className = "especie";
 
@@ -89,5 +89,5 @@ function crearTarjeta(especie) {
     tarjeta.appendChild(habitat);
 
     contenedor.appendChild(tarjeta);
-
+    console.log(contenedor.innerHTML);
 }
