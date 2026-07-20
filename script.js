@@ -1,17 +1,16 @@
 // ============================================
-// URL DEL GOOGLE SHEET
+// CONFIGURACIÓN
 // ============================================
 
+// URL del Google Sheet publicado como CSV
 const csvURL = "https://docs.google.com/spreadsheets/d/17K51aY-j6fMURmp-55wiVGyzNJDJLSK3-sEEzEgcDVM/export?format=csv&gid=0";
 
-// Contenedor donde se añadirán las especies
+// Contenedor donde se mostrarán las especies
 const contenedor = document.getElementById("species-container");
 
-console.log("Script cargado");
-console.log(contenedor);
 
 // ============================================
-// CARGAR DATOS
+// CARGAR LOS DATOS
 // ============================================
 
 Papa.parse(csvURL, {
@@ -25,19 +24,17 @@ Papa.parse(csvURL, {
         console.log("Datos cargados correctamente");
         console.table(results.data);
 
-        results.data.forEach(function(especie){
+        // Ignorar filas vacías
+        const especies = results.data.filter(especie => especie.taxon);
 
-            console.log(especie);
-
-            crearTarjeta(especie);
-
-        });
+        // Crear una tarjeta para cada especie
+        especies.forEach(crearTarjeta);
 
     },
 
     error: function(error) {
 
-        console.error("Error:", error);
+        console.error("Error al cargar el CSV:", error);
 
     }
 
@@ -45,28 +42,52 @@ Papa.parse(csvURL, {
 
 
 // ============================================
-// CREAR TARJETA
+// CREAR TARJETA DE UNA ESPECIE
 // ============================================
 
 function crearTarjeta(especie) {
-console.log("Creando tarjeta:", especie.taxon);
+
+    // Tarjeta principal
     const tarjeta = document.createElement("section");
     tarjeta.className = "especie";
 
+    // -----------------------
+    // Título
+    // -----------------------
+
     const titulo = document.createElement("h2");
-    titulo.textContent = especie.taxon || "Sin nombre";
+    titulo.textContent = especie.taxon;
 
     tarjeta.appendChild(titulo);
 
-    if (especie.foto) {
+    // -----------------------
+    // Imagen
+    // -----------------------
+
+    const fotos = [
+        especie.foto1,
+        especie.foto2,
+        especie.foto3,
+        especie.foto4,
+        especie.foto5
+    ];
+
+    const primeraFoto = fotos.find(foto => foto && foto.trim() !== "");
+
+    if (primeraFoto) {
 
         const imagen = document.createElement("img");
-        imagen.src = especie.foto;
+
+        imagen.src = primeraFoto;
         imagen.alt = especie.taxon;
 
         tarjeta.appendChild(imagen);
 
     }
+
+    // -----------------------
+    // Familia
+    // -----------------------
 
     const familiaTitulo = document.createElement("h3");
     familiaTitulo.textContent = "Familia";
@@ -78,6 +99,24 @@ console.log("Creando tarjeta:", especie.taxon);
 
     tarjeta.appendChild(familia);
 
+    // -----------------------
+    // Grupo
+    // -----------------------
+
+    const grupoTitulo = document.createElement("h3");
+    grupoTitulo.textContent = "Grupo";
+
+    tarjeta.appendChild(grupoTitulo);
+
+    const grupo = document.createElement("p");
+    grupo.textContent = especie.grupo || "-";
+
+    tarjeta.appendChild(grupo);
+
+    // -----------------------
+    // Hábitat
+    // -----------------------
+
     const habitatTitulo = document.createElement("h3");
     habitatTitulo.textContent = "Hábitat";
 
@@ -88,6 +127,21 @@ console.log("Creando tarjeta:", especie.taxon);
 
     tarjeta.appendChild(habitat);
 
+    // -----------------------
+    // Descripción / Observaciones
+    // -----------------------
+
+    const descripcionTitulo = document.createElement("h3");
+    descripcionTitulo.textContent = "Descripción";
+
+    tarjeta.appendChild(descripcionTitulo);
+
+    const descripcion = document.createElement("p");
+    descripcion.textContent = especie.descripcion || "";
+
+    tarjeta.appendChild(descripcion);
+
+    // Añadir la tarjeta a la página
     contenedor.appendChild(tarjeta);
-    console.log(contenedor.innerHTML);
+
 }
