@@ -1,32 +1,28 @@
 // ============================================
-// CONFIGURACIÓN
+// URL DEL GOOGLE SHEET
 // ============================================
 
-// Sustituye esta URL por la de tu Google Sheet publicado como CSV
-const csvURL = "PEGA_AQUÍ_LA_URL_DE_TU_CSV";
+const csvURL = "https://docs.google.com/spreadsheets/d/17K51aY-j6fMURmp-55wiVGyzNJDJLSK3-sEEzEgcDVM/export?format=csv&gid=0";
 
 
 // ============================================
-// CARGAR LOS DATOS
+// CARGAR DATOS
 // ============================================
 
 Papa.parse(csvURL, {
 
     download: true,
-
     header: true,
-
     skipEmptyLines: true,
 
-    complete: function(resultado) {
+    complete: function (results) {
 
-        console.log("Datos cargados correctamente:");
-
-        console.table(resultado.data);
+        console.log("Datos cargados correctamente");
+        console.table(results.data);
 
     },
 
-    error: function(error) {
+    error: function (error) {
 
         console.error("Error al cargar el CSV:", error);
 
