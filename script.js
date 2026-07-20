@@ -64,26 +64,54 @@ function crearTarjeta(especie) {
     // Imagen
     // -----------------------
 
-    const fotos = [
-        especie.foto1,
-        especie.foto2,
-        especie.foto3,
-        especie.foto4,
-        especie.foto5
-    ];
+// -----------------------
+// Galería de fotos
+// -----------------------
 
-    const primeraFoto = fotos.find(foto => foto && foto.trim() !== "");
+const fotos = [
+    especie.foto1,
+    especie.foto2,
+    especie.foto3,
+    especie.foto4,
+    especie.foto5
+].filter(f => f && f.trim() !== "");
 
-    if (primeraFoto) {
+// Contenedor de la galería
+const galeria = document.createElement("div");
+galeria.className = "galeria";
 
-        const imagen = document.createElement("img");
+// Imagen principal
+const imagenPrincipal = document.createElement("img");
+imagenPrincipal.className = "imagen-principal";
+imagenPrincipal.src = fotos[0];
+imagenPrincipal.alt = especie.taxon;
 
-        imagen.src = primeraFoto;
-        imagen.alt = especie.taxon;
+galeria.appendChild(imagenPrincipal);
 
-        tarjeta.appendChild(imagen);
+// Miniaturas
+const miniaturas = document.createElement("div");
+miniaturas.className = "miniaturas";
 
-    }
+fotos.forEach(foto => {
+
+    const miniatura = document.createElement("img");
+
+    miniatura.src = foto;
+    miniatura.className = "miniatura";
+
+    miniatura.addEventListener("click", function(){
+
+        imagenPrincipal.src = foto;
+
+    });
+
+    miniaturas.appendChild(miniatura);
+
+});
+
+galeria.appendChild(miniaturas);
+
+tarjeta.appendChild(galeria);
 
     // -----------------------
     // Familia
